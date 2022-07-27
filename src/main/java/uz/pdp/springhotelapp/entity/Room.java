@@ -10,11 +10,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity
-public class Hotel {
+public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    private Integer number;
+
+    private Integer floor;
+
+    private Integer size;
+
+    @ManyToOne
+    private Hotel hotel;
 }
