@@ -15,10 +15,12 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private Integer number;
 
     private Integer floor;
 
+    @Column(nullable = false)
     private Integer size;
 
     @ManyToOne
