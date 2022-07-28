@@ -25,4 +25,11 @@ public class Room {
 
     @ManyToOne
     private Hotel hotel;
+
+    public Room(Integer number, Integer floor, Integer size, Hotel hotel) {
+        this.number = number;
+        this.floor = floor;
+        this.size = size;
+        this.hotel = hotel;
+    }
 }

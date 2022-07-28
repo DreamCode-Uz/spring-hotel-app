@@ -38,9 +38,8 @@ public class RoomService {
     }
 
     public ResponseEntity<Page<Room>> getParamPageableValue(Long id, Integer page) {
-        System.out.println(page);
         try {
-            Pageable pageable = PageRequest.of(page, (page - 1) * 10);
+            Pageable pageable = PageRequest.of(page - 1, 10);
             return new ResponseEntity<>(roomRepository.findAllByHotel_Id(id, pageable), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,7 +50,7 @@ public class RoomService {
     public ResponseEntity<Object> saveRoom(RoomDTO dto) {
         Optional<Hotel> optionalHotel = hotelRepository.findById(dto.getHotelId());
         if (optionalHotel.isPresent()) {
-            Room room = new Room(dto.getHotelId(), dto.getNumber(), dto.getFloor(), dto.getSize(), optionalHotel.get());
+            Room room = new Room(dto.getNumber(), dto.getFloor(), dto.getSize(), optionalHotel.get());
             return new ResponseEntity<>(roomRepository.save(room), HttpStatus.CREATED);
         }
         return new ResponseEntity<>(String.format("Hotel id:[%s] not found", dto.getHotelId()), HttpStatus.NOT_FOUND);
