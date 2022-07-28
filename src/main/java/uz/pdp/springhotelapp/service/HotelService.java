@@ -50,6 +50,7 @@ public class HotelService {
     public ResponseEntity<String> deleteHotel(Long id) {
         Optional<Hotel> optionalHotel = repository.findById(id);
         if (optionalHotel.isPresent()) {
+            repository.delete(optionalHotel.get());
             try {
                 return new ResponseEntity<>("Hotel successfully deleted", HttpStatus.OK);
             } catch (Exception e) {
