@@ -1,7 +1,6 @@
 package uz.pdp.springhotelapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.springhotelapp.entity.Room;
@@ -24,6 +23,11 @@ public class RoomController {
     @GetMapping
     public ResponseEntity<List<Room>> rooms() {
         return service.getAll();
+    }
+
+    @GetMapping("/id={id}")
+    public ResponseEntity<Object> room(@PathVariable Long id) {
+        return service.getOne(id);
     }
 
     @GetMapping("/hotel/id={hotelId}")
