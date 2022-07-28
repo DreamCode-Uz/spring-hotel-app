@@ -27,7 +27,7 @@ public class RoomController {
     }
 
     @GetMapping("/hotel/id={hotelId}")
-    public ResponseEntity<Page<Room>> getPageableRoom(@PathVariable("hotelId") Long id, @RequestParam(value = "page", defaultValue = "1") Integer page) {
+    public ResponseEntity<Object> getPageableRoom(@PathVariable("hotelId") Long id, @RequestParam(value = "page", defaultValue = "1") Integer page) {
         return service.getParamPageableValue(id, page);
     }
 
