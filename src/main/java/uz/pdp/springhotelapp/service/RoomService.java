@@ -54,12 +54,25 @@ public class RoomService {
     public ResponseEntity<Object> updateRoom(Long id, RoomDTO dto) {
         Optional<Room> optionalRoom = roomRepository.findById(id);
         if (optionalRoom.isPresent()) {
-            
+            Room room = new Room(id, dto.getNumber(), dto.getFloor(), dto.getSize(), optionalRoom.get().getHotel());
             Optional<Hotel> optionalHotel = hotelRepository.findById(dto.getHotelId());
-            if (optionalRoom.isPresent()) {
-                //
+            if (optionalHotel.isPresent()) {
+                room.setHotel(optionalHotel.get());
+            }
+            return new ResponseEntity<>(roomRepository.save(room), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(String.format("Room id:[%s] not found", id), HttpStatus.NOT_FOUND);
+    }
+
+    public ResponseEntity<String> deleteRoom(Long id) {
+        Optional<Room> optionalRoom = roomRepository.findById(id);
+        if (optionalRoom.isPresent()) {
+            try {
+                return new ResponseEntity<>("Room successfully deleted", HttpStatus.OK);
+            } catch (Exception e) {
+                return new ResponseEntity<>("BAD REQUEST", HttpStatus.BAD_REQUEST);
             }
         }
-        return new ResponseEntity<>(String.format("Room id:[%s] not found", id),HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(String.format("Room id:[%s] not found", id), HttpStatus.NOT_FOUND);
     }
 }
